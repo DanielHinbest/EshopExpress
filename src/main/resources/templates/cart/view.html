@@ -1,0 +1,127 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EshopExpress - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #E60012;  /* Nintendo Red */
+            --secondary: #FFFFFF;
+            --accent: #00489C;  /* Nintendo Blue */
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+        }
+        .card {
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        .btn-primary {
+            background-color: var(--accent);
+            border-color: var(--accent);
+        }
+        .hero-section {
+            background-color: var(--primary);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+<div th:fragment="title">Shopping Cart</div>
+
+<div th:fragment="content">
+    <h2>Your Shopping Cart</h2>
+
+    <!-- Empty Cart Message -->
+    <div th:if="${#lists.isEmpty(cart.items)}" class="alert alert-info">
+        <p>Your cart is empty. <a th:href="@{/games}" class="alert-link">Browse games</a> to add items to your cart.</p>
+    </div>
+
+    <!-- Cart Items -->
+    <div th:if="${!#lists.isEmpty(cart.items)}" class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="item : ${cart.items}">
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img th:src="${item.imageUrl}" alt="Product" class="img-thumbnail me-2" style="width: 70px;">
+                                    <div>
+                                        <h6 th:text="${item.name}">Product Name</h6>
+                                        <span th:if="${item.digital}" class="badge bg-info">Digital</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td th:text="${'$' + #numbers.formatDecimal(item.price, 1, 2)}">$59.99</td>
+                            <td>
+                                <div class="quantity-control d-flex align-items-center">
+                                    <form th:action="@{/cart/update}" method="post" class="d-flex">
+                                        <input type="hidden" name="itemId" th:value="${item.id}">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary decrement">-</button>
+                                        <input type="number" name="quantity" class="form-control mx-2" style="width: 60px;"
+                                               th:value="${item.quantity}" min="1" max="10">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary increment">+</button>
+                                    </form>
+                                </div>
+                            </td>
+                            <td th:text="${'$' + #numbers.formatDecimal(item.price * item.quantity, 1, 2)}">$59.99</td>
+                            <td>
+                                <form th:action="@{/cart/remove}" method="post">
+                                    <input type="hidden" name="itemId" th:value="${item.id}">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Order Summary</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotal:</span>
+                        <span th:text="${'$' + #numbers.formatDecimal(cart.subtotal, 1, 2)}">$59.99</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Tax (7%):</span>
+                        <span th:text="${'$' + #numbers.formatDecimal(cart.tax, 1, 2)}">$4.20</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between mb-4 fw-bold">
+                        <span>Total:</span>
+                        <span th:text="${'$' + #numbers.formatDecimal(cart.total, 1, 2)}">$64.19</span>
+                    </div>
+
+                    <a th:href="@{/checkout}" class="btn btn-danger w-100">Proceed to Checkout</a>
+                    <a th:href="@{/games}" class="btn btn-outline-secondary w-100 mt-2">Continue Shopping</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

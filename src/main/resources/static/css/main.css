@@ -1,0 +1,186 @@
+/* Main Styling */
+:root {
+    /* Nintendo-inspired colors */
+    --primary: #E60012;  /* Nintendo Red */
+    --secondary: #FFFFFF;
+    --accent: #00489C;  /* Nintendo Blue */
+    --dark: #000000;
+    --light: #F5F5F5;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--light);
+}
+
+/* Navigation */
+.navbar-dark.bg-danger {
+    background-color: var(--primary) !important;
+}
+
+/* Cards */
+.card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Game Detail Page */
+.game-detail img {
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* New release badge */
+.new-release-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--accent);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    z-index: 1;
+}
+
+/* Platform cards */
+.platform-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.platform-card:hover {
+    transform: translateY(-5px);
+}
+
+.platform-card .card {
+    border: 2px solid var(--primary);
+    background-color: var(--secondary);
+}
+
+/* Star ratings */
+.stars {
+    color: #FFD700;
+}
+
+/* Custom buttons */
+.btn-primary {
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+.btn-primary:hover {
+    background-color: #003b80;
+    border-color: #003b80;
+}
+
+.btn-danger {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-danger:hover {
+    background-color: #cc0010;
+    border-color: #cc0010;
+}
+
+/* Cart badge */
+.badge {
+    font-size: 0.8rem;
+}
+
+/* Footer */
+footer {
+    margin-top: 3rem;
+}
+
+footer a {
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Hero section */
+.hero-section {
+    background-color: var(--primary);
+    background-image: linear-gradient(135deg, var(--primary) 0%, #ff3e3e 100%);
+}
+
+/* Wishlist heart */
+.bi-heart, .bi-heart-fill {
+    font-size: 1.2rem;
+}
+
+/* Reviews */
+.reviews-list .card {
+    transition: none;
+}
+
+.reviews-list .card:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Cart and checkout */
+.quantity-control {
+    max-width: 120px;
+}
+
+/* Form validation styles */
+.form-control:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 0.25rem rgba(0, 72, 156, 0.25);
+}
+
+/* Account pages */
+.account-sidebar .list-group-item.active {
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+/* Admin dashboard */
+.dashboard-stat-card {
+    text-align: center;
+    padding: 1.5rem;
+}
+
+.dashboard-stat-card i {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.dashboard-stat-card .stat-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .card-img-top {
+        height: 160px;
+    }
+
+    .hero-section {
+        text-align: center;
+    }
+
+    .hero-section img {
+        margin-top: 1.5rem;
+    }
+}
