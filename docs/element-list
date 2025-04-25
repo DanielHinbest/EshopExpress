@@ -1,0 +1,13 @@
+ca.eshopexpress
+ca.eshopexpress.config
+ca.eshopexpress.controller
+ca.eshopexpress.exception
+ca.eshopexpress.model.dto
+ca.eshopexpress.model.entity
+ca.eshopexpress.model.enums
+ca.eshopexpress.model.security
+ca.eshopexpress.repository
+ca.eshopexpress.service
+ca.eshopexpress.service.digital
+ca.eshopexpress.service.impl
+ca.eshopexpress.util
