@@ -79,4 +79,17 @@ public class Platform {
     public void setManufacturer(String manufacturer) {
         this.manufacturer = manufacturer;
     }
+
+    /**
+     * An output string for the platform
+     * @return the platform string
+     */
+    @Override
+    public String toString() {
+        return "Platform{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", manufacturer='" + manufacturer + '\'' +
+                '}';
+    }
 }
