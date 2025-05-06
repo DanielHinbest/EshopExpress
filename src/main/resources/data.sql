@@ -133,11 +133,11 @@ CREATE TABLE orders (
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL,
-    address VARCHAR(255),
-    city VARCHAR(100),
-    province VARCHAR(50),
-    postal_code VARCHAR(20),
-    payment_method VARCHAR(50),
+    address VARCHAR(255) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    province VARCHAR(50) NOT NULL,
+    postal_code VARCHAR(20) NOT NULL,
+    payment_method VARCHAR(50) NOT NULL,
     estimated_delivery DATE,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );

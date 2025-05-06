@@ -61,19 +61,19 @@ public class User {
     /**
      * User's orders
      */
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "users")
     private List<Order> orders = new HashSet<>();
 
     /**
      * User's reviews
      */
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "users")
     private List<Review> reviews = new ArrayList<>();
 
     /**
      * User's wishlist
      */
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "users")
     private List<WishlistItem> wishlistItems = new ArrayList<>();
 
     /**
