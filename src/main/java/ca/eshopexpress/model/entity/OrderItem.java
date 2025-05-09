@@ -4,7 +4,10 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 /**
- * Represents an item within an order, which can be a game or accessory.
+ * The class to represent the order items in the database
+ * @author Daniel Hinbest
+ * @version 1.0
+ * @since 2025-05-05
  */
 @Entity
 @Table(name = "order_items")
