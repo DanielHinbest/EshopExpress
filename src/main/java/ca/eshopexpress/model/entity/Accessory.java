@@ -5,6 +5,12 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
+/**
+ * The class to represent the accessories in the database
+ * @author Daniel Hinbest
+ * @version 1.0
+ * @since 2025-05-08
+ */
 @Entity
 @Table(name = "accessories")
 public class Accessory {

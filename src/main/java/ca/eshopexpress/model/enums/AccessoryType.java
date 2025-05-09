@@ -1,4 +1,4 @@
 package ca.eshopexpress.model.enums;
 
-public class AccessoryType {
+public enum AccessoryType {
 }
