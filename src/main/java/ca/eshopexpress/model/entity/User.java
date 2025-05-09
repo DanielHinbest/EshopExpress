@@ -62,7 +62,7 @@ public class User {
      * User's orders
      */
     @OneToMany(mappedBy = "users")
-    private List<Order> orders = new HashSet<>();
+    private Set<Order> orders = new HashSet<>();
 
     /**
      * User's reviews
@@ -192,7 +192,7 @@ public class User {
      * Get a list of the user's orders
      * @return list of the user's orders
      */
-    public List<Order> getOrders() {
+    public Set<Order> getOrders() {
         return orders;
     }
 
@@ -200,7 +200,7 @@ public class User {
      * Set a list of user's orders
      * @param orders the user's orders
      */
-    public void setOrders(List<Order> orders) {
+    public void setOrders(Set<Order> orders) {
         this.orders = orders;
     }
 
