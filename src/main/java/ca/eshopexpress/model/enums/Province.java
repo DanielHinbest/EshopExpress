@@ -78,4 +78,20 @@ public enum Province {
         this.code = code;
         this.name = name;
     }
+
+    /**
+     * Get province/territory code
+     * @return province/territory code
+     */
+    public String getCode() {
+        return code;
+    }
+
+    /**
+     * Get province/territory name
+     * @return province/territory name
+     */
+    public String getName() {
+        return name;
+    }
 }
