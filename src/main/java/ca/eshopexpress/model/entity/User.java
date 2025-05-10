@@ -21,7 +21,7 @@ public class User {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     /**
      * Username
@@ -80,7 +80,7 @@ public class User {
      * Get the user ID
      * @return user ID
      */
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -88,7 +88,7 @@ public class User {
      * Set the user ID
      * @param id user ID
      */
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

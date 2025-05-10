@@ -20,7 +20,7 @@ public class Review {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     /**
      * The game for the review
@@ -35,7 +35,7 @@ public class Review {
     @Column(nullable = false)
     @Min(1)
     @Max(5)
-    private int rating;
+    private Integer rating;
 
     /**
      * The user comments
@@ -60,7 +60,7 @@ public class Review {
      * Get the review ID
      * @return review ID
      */
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -68,7 +68,7 @@ public class Review {
      * Set the review ID
      * @param id review ID
      */
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -92,7 +92,7 @@ public class Review {
      * Get the game rating
      * @return game rating
      */
-    public int getRating() {
+    public Integer getRating() {
         return rating;
     }
 
@@ -100,7 +100,7 @@ public class Review {
      * Set the game rating
      * @param rating game rating
      */
-    public void setRating(int rating) {
+    public void setRatingI(Integer rating) {
         this.rating = rating;
     }
 

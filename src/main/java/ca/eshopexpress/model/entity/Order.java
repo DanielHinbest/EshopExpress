@@ -4,6 +4,7 @@ import ca.eshopexpress.model.enums.OrderStatus;
 import ca.eshopexpress.model.enums.Province;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -45,19 +46,19 @@ public class Order {
      * The order subtotal
      */
     @Column(nullable = false)
-    private Float subtotal;
+    private BigDecimal subtotal;
 
     /**
      * The order's tax added
      */
     @Column(nullable = false)
-    private Float tax;
+    private BigDecimal tax;
 
     /**
      * The order's total cost
      */
     @Column(nullable = false)
-    private Float total;
+    private BigDecimal total;
 
     /**
      * The order user's first name
@@ -181,7 +182,7 @@ public class Order {
      * Get the order subtotal
      * @return subtotal
      */
-    public Float getSubtotal() {
+    public BigDecimal getSubtotal() {
         return subtotal;
     }
 
@@ -189,7 +190,7 @@ public class Order {
      * Set the order subtotal
      * @param subtotal order subtotal
      */
-    public void setSubtotal(Float subtotal) {
+    public void setSubtotal(BigDecimal subtotal) {
         this.subtotal = subtotal;
     }
 
@@ -197,7 +198,7 @@ public class Order {
      * Get the tax added to the order
      * @return tax added onto the order
      */
-    public Float getTax() {
+    public BigDecimal getTax() {
         return tax;
     }
 
@@ -205,7 +206,7 @@ public class Order {
      * Set the tax added to the order
      * @param tax tax added to the order
      */
-    public void setTax(Float tax) {
+    public void setTax(BigDecimal tax) {
         this.tax = tax;
     }
 
@@ -213,7 +214,7 @@ public class Order {
      * Get the order's total cost
      * @return total cost
      */
-    public Float getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
@@ -221,7 +222,7 @@ public class Order {
      * Set the order's total cost
      * @param total total cost
      */
-    public void setTotal(Float total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 
