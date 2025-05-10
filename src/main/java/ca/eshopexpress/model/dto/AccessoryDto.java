@@ -250,6 +250,6 @@ public class AccessoryDto {
      * @return an AccessoryDto example
      */
     public static AccessoryDto example() {
-        return new AccessoryDto(1L, "Nintendo Switch Pro Controller", "Handheld Controller for Nintendo Switch", 80.00, null, AccessoryType.CONTROLLER, "Nintendo", null, 5, new Platform());
+        return new AccessoryDto(1L, "Nintendo Switch Pro Controller", "Handheld Controller for Nintendo Switch", new BigDecimal(80.00), null, AccessoryType.CONTROLLER, "Nintendo", null, 5, new Platform());
     }
 }
