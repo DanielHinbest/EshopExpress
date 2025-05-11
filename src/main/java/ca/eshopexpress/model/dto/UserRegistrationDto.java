@@ -15,6 +15,7 @@ import java.util.Set;
  * This class includes credentials, personal information, and related entities such as
  * roles, orders, reviews, and wishlist items.
  *
+ * @author Daniel Hinbest
  * @version 1.0
  * @since 2025-05-09
  */

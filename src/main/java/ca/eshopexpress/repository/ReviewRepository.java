@@ -1,4 +1,4 @@
 package ca.eshopexpress.repository;
 
-public class ReviewRepository {
+public interface ReviewRepository {
 }

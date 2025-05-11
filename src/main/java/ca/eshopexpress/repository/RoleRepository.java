@@ -1,4 +1,4 @@
 package ca.eshopexpress.repository;
 
-public class RoleRepository {
+public interface RoleRepository {
 }

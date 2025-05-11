@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
  * Encapsulates information about a user's review, including rating, comment,
  * creation time, and associated game and user data.
  *
+ * @author Daniel Hinbest
  * @version 1.0
  * @since 2025-05-09
  */

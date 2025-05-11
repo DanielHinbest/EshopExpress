@@ -1,4 +1,4 @@
 package ca.eshopexpress.repository;
 
-public class UserRepository {
+public interface UserRepository {
 }
