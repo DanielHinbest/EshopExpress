@@ -1,4 +1,4 @@
 package ca.eshopexpress.service;
 
-public class UserService {
+public interface UserService {
 }

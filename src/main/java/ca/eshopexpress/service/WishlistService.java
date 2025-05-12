@@ -1,4 +1,5 @@
 package ca.eshopexpress.service;
 
-public class WishlistService {
+public interface WishlistService {
+
 }

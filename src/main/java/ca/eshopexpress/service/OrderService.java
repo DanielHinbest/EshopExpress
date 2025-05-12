@@ -1,4 +1,4 @@
 package ca.eshopexpress.service;
 
-public class OrderService {
+public interface OrderService {
 }
