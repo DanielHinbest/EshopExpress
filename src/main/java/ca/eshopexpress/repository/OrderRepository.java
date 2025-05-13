@@ -28,7 +28,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
      * @param customerId the ID of the customer
      * @return a list of orders belonging to the customer
      */
-    List<Order> findByCustomerId(int customerId);
+    List<Order> findByCustomerId(Long customerId);
 
     /**
      * Retrieves a list of orders placed by customers with the specified last name.
