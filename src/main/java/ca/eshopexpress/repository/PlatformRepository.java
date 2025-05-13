@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Repository interface for managing {@link Platform} entities.
@@ -13,17 +14,18 @@ import java.util.List;
  * </p>
  *
  * @author Daniel Hinbest
- * @version 1.0
+ * @version 1.1
  * @since 2025-05-11
  */
 @Repository
 public interface PlatformRepository extends JpaRepository<Platform, Long> {
 
     /**
-     * Retrieves a list of platforms whose names contain the specified string, ignoring case.
+     * Retrieves a platform whose name contains the specified string, ignoring case.
+     * Modified to return an Optional to handle possible absence of matching platform.
      *
      * @param name the name of the platform to search for
-     * @return a list of matching platforms
+     * @return an Optional containing the matching platform if found, or empty otherwise
      */
-    List<Platform> findByNameContainingIgnoreCase(String name);
+    Optional<Platform> findByNameContainingIgnoreCase(String name);
 }

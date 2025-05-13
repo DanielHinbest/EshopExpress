@@ -9,9 +9,9 @@ import ca.eshopexpress.repository.GameRepository;
 import ca.eshopexpress.repository.GenreRepository;
 import ca.eshopexpress.repository.PlatformRepository;
 import ca.eshopexpress.service.GameService;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -20,12 +20,15 @@ import java.util.Optional;
 import java.util.OptionalDouble;
 
 /**
- * Service implementation for managing game-related operations such as retrieving,
- * filtering, saving, deleting, and updating games.
+ * Service implementation for managing game-related business logic.
+ * <p>
+ * Provides methods to retrieve, search, create, update, and delete games,
+ * as well as platform/genre filtering, new release detection, and rating aggregation.
+ * </p>
  *
  * @author Daniel Hinbest
- * @version 1.0
- * @since 2025-05-12
+ * @version 1.1
+ * @since 2025-05-13
  */
 @Service
 public class GameServiceImpl implements GameService {
@@ -40,7 +43,7 @@ public class GameServiceImpl implements GameService {
     private GenreRepository genreRepository;
 
     /**
-     * Retrieves all games from the repository.
+     * Retrieves all games.
      *
      * @return a list of all games
      */
@@ -53,7 +56,7 @@ public class GameServiceImpl implements GameService {
      * Finds a game by its ID.
      *
      * @param id the ID of the game
-     * @return an Optional containing the found game, if any
+     * @return an Optional containing the game if found, or empty otherwise
      */
     @Override
     public Optional<Game> findById(Long id) {
@@ -61,11 +64,11 @@ public class GameServiceImpl implements GameService {
     }
 
     /**
-     * Retrieves a game by ID or throws an exception if not found.
+     * Finds a game by ID or throws an exception if not found.
      *
-     * @param id the game ID
-     * @return the game if found
-     * @throws ResourceNotFoundException if game is not found
+     * @param id the ID of the game
+     * @return the game with the specified ID
+     * @throws ResourceNotFoundException if the game does not exist
      */
     @Override
     public Game getGameOrThrow(Long id) {
@@ -74,9 +77,9 @@ public class GameServiceImpl implements GameService {
     }
 
     /**
-     * Searches for games by title using case-insensitive partial matching.
+     * Searches for games by title (case-insensitive, partial match).
      *
-     * @param title the title to search for
+     * @param title the title to search
      * @return a list of matching games
      */
     @Override
@@ -85,43 +88,45 @@ public class GameServiceImpl implements GameService {
     }
 
     /**
-     * Finds games available on a specific platform.
+     * Retrieves games associated with a specific platform.
      *
-     * @param platformName the name of the platform
-     * @return a list of matching games
+     * @param platformName the platform name (e.g., "PC", "PlayStation 5")
+     * @return a list of games available on the platform
      * @throws ResourceNotFoundException if the platform is not found
      */
     @Override
-    @Cacheable("gamesByPlatform")
+    @Cacheable(value = "gamesByPlatform", key = "#platformName.toLowerCase()")
     public List<Game> findByPlatform(String platformName) {
-        Platform platform = platformRepository.findByNameContainingIgnoreCase(platformName)
-                .stream()
-                .findFirst()
-                .orElseThrow(() -> new ResourceNotFoundException("Platform not found: " + platformName));
-        return gameRepository.findByPlatformsContaining(platform);
+        Optional<Platform> platform = platformRepository.findByNameContainingIgnoreCase(platformName);
+        if (platform.isPresent()) {
+            return gameRepository.findByPlatformsContaining(platform.get());
+        } else {
+            throw new ResourceNotFoundException("Platform not found: " + platformName);
+        }
     }
 
     /**
-     * Finds games by genre.
+     * Retrieves games by genre.
      *
-     * @param genreName the name of the genre
-     * @return a list of matching games
+     * @param genreName the genre name (e.g., "Action", "RPG")
+     * @return a list of games in the specified genre
      * @throws ResourceNotFoundException if the genre is not found
      */
     @Override
-    @Cacheable("gamesByGenre")
+    @Cacheable(value = "gamesByGenre", key = "#genreName.toLowerCase()")
     public List<Game> findByGenre(String genreName) {
-        Genre genre = genreRepository.findByNameContainingIgnoreCase(genreName)
-                .stream()
-                .findFirst()
-                .orElseThrow(() -> new ResourceNotFoundException("Genre not found: " + genreName));
-        return gameRepository.findByGenresContaining(genre);
+        Optional<Genre> genre = genreRepository.findByNameContainingIgnoreCase(genreName);
+        if (genre.isPresent()) {
+            return gameRepository.findByGenresContaining(genre.get());
+        } else {
+            throw new ResourceNotFoundException("Genre not found: " + genreName);
+        }
     }
 
     /**
-     * Retrieves games released within the last month.
+     * Retrieves games released within the past month, sorted by newest first.
      *
-     * @return a list of new release games
+     * @return a list of new releases
      */
     @Override
     public List<Game> findNewReleases() {
@@ -130,7 +135,7 @@ public class GameServiceImpl implements GameService {
     }
 
     /**
-     * Retrieves games with an average rating of 4.0 or higher.
+     * Retrieves games with average rating >= 4.0.
      *
      * @return a list of top-rated games
      */
@@ -140,7 +145,8 @@ public class GameServiceImpl implements GameService {
     }
 
     /**
-     * Saves or updates a game and clears related caches.
+     * Saves or updates a game entity.
+     * Clears platform/genre caches to ensure data consistency.
      *
      * @param game the game to save
      * @return the saved game
@@ -152,7 +158,8 @@ public class GameServiceImpl implements GameService {
     }
 
     /**
-     * Deletes a game by ID and clears related caches.
+     * Deletes a game by its ID.
+     * Clears platform/genre caches to ensure data consistency.
      *
      * @param id the ID of the game to delete
      */
@@ -163,10 +170,12 @@ public class GameServiceImpl implements GameService {
     }
 
     /**
-     * Updates the stock quantity of a non-digital game.
+     * Updates stock quantity for physical games.
+     * Ignores digital games since they are not stock-limited.
      *
-     * @param gameId   the game ID
-     * @param quantity the amount to add or subtract from stock
+     * @param gameId the ID of the game
+     * @param quantity the amount to adjust (positive or negative)
+     * @throws ResourceNotFoundException if the game does not exist
      */
     @Override
     public void updateStock(Long gameId, int quantity) {
@@ -180,10 +189,11 @@ public class GameServiceImpl implements GameService {
     }
 
     /**
-     * Calculates and updates the average rating of a game based on its reviews.
+     * Calculates and updates the average rating for a game.
      *
      * @param gameId the ID of the game
-     * @return the calculated average rating, or null if no reviews exist
+     * @return the new average rating, or null if no reviews exist
+     * @throws ResourceNotFoundException if the game does not exist
      */
     @Override
     public Double calculateAverageRating(Long gameId) {

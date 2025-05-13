@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Repository interface for managing {@link Genre} entities.
@@ -13,17 +14,18 @@ import java.util.List;
  * </p>
  *
  * @author Daniel Hinbest
- * @version 1.0
+ * @version 1.1
  * @since 2025-05-11
  */
 @Repository
 public interface GenreRepository extends JpaRepository<Genre, Long> {
 
     /**
-     * Retrieves a list of genres whose names contain the specified string, ignoring case.
+     * Retrieves a genre whose name contains the specified string, ignoring case.
+     * Modified to return an Optional to handle possible absence of matching genre.
      *
      * @param name the name of the genre to search for
-     * @return a list of matching genres
+     * @return an Optional containing the matching genre if found, or empty otherwise
      */
-    List<Genre> findByNameContainingIgnoreCase(String name);
+    Optional<Genre> findByNameContainingIgnoreCase(String name);
 }

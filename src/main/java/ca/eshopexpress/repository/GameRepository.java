@@ -10,18 +10,11 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
  * Repository interface for accessing and managing {@link Game} entities in the database.
- * <p>
- * Provides CRUD operations and various query methods for retrieving games by title,
- * platform, genre, release date, rating, and for generating recommendations.
- * </p>
- *
- * @author Daniel Hinbest
- * @version 1.0
- * @since 2025-05-10
  */
 @Repository
 public interface GameRepository extends JpaRepository<Game, Long> {
@@ -38,15 +31,15 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     /**
      * Retrieves a list of games that are available on the specified platform name.
      *
-     * @param platform the name of the platform
+     * @param platform the platform to search for
      * @return a list of games available on the specified platform
      */
     List<Game> findByPlatformsContaining(Platform platform);
 
     /**
-     * Retrieves a list of games that belong to the specified genre name.
+     * Retrieves a list of games that belong to the specified genre.
      *
-     * @param genre the name of the genre
+     * @param genre the genre to search for
      * @return a list of games in the specified genre
      */
     List<Game> findByGenresContaining(Genre genre);
