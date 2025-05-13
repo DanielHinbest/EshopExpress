@@ -9,7 +9,7 @@ import ca.eshopexpress.repository.GameRepository;
 import ca.eshopexpress.repository.GenreRepository;
 import ca.eshopexpress.repository.PlatformRepository;
 import ca.eshopexpress.service.GameService;
-import jakarta.persistence.Cacheable;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
@@ -95,8 +95,10 @@ public class GameServiceImpl implements GameService {
     @Cacheable("gamesByPlatform")
     public List<Game> findByPlatform(String platformName) {
         Platform platform = platformRepository.findByNameContainingIgnoreCase(platformName)
+                .stream()
+                .findFirst()
                 .orElseThrow(() -> new ResourceNotFoundException("Platform not found: " + platformName));
-        return gameRepository.findByPlatformsContaining(platformName);
+        return gameRepository.findByPlatformsContaining(platform);
     }
 
     /**
@@ -110,8 +112,10 @@ public class GameServiceImpl implements GameService {
     @Cacheable("gamesByGenre")
     public List<Game> findByGenre(String genreName) {
         Genre genre = genreRepository.findByNameContainingIgnoreCase(genreName)
+                .stream()
+                .findFirst()
                 .orElseThrow(() -> new ResourceNotFoundException("Genre not found: " + genreName));
-        return gameRepository.findByGenresContaining(genreName);
+        return gameRepository.findByGenresContaining(genre);
     }
 
     /**

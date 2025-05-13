@@ -41,7 +41,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
      * @param platform the name of the platform
      * @return a list of games available on the specified platform
      */
-    List<Game> findByPlatformsContaining(String platform);
+    List<Game> findByPlatformsContaining(Platform platform);
 
     /**
      * Retrieves a list of games that belong to the specified genre name.
@@ -49,7 +49,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
      * @param genre the name of the genre
      * @return a list of games in the specified genre
      */
-    List<Game> findByGenresContaining(String genre);
+    List<Game> findByGenresContaining(Genre genre);
 
     /**
      * Retrieves a list of games released after the specified date,
